@@ -30,7 +30,7 @@ jobs:
     
     - stage: documentation
       install:
-        - pip install travis-sphinx
+        - pip install travis-sphinx sphinx_rtd_theme
       script:
        - travis-sphinx build --source=doc/ --nowarn
       after_success:
