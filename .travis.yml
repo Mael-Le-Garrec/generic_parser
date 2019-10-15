@@ -5,7 +5,7 @@ env:
 stages:
   - test
   - name: package
-    if: branch = master AND tag IS present
+    if: tag = ^v\d+.\d+.\d+.*
 
 language: python
 email:
