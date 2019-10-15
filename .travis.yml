@@ -4,8 +4,10 @@ env:
 
 stages:
   - test
+  - name: documentation
+    if: tag =~ ^v\d+\.\d+\.\d+.*
   - name: package
-    if: tag =~ ^v\d+.\d+.\d+.*
+    if: tag =~ ^v\d+\.\d+\.\d+.*
 
 language: python
 email:
@@ -23,16 +25,12 @@ jobs:
         - ./cc-test-reporter before-build
       script:
        - pytest --cov-report xml --cov=generic_parser tests
-       - travis-sphinx build --source=doc/ --nowarn
-       - echo "$TRAVIS_EVENT_TYPE"
-       - echo "$TRAVIS_TAG"       
-       - echo "$TRAVIS_BRANCH"    
-       - echo "$TRAVIS_HEAD_BRANCH"    
-       - echo "$TRAVIS_HEAD_BRANCH"    
-       - env
       after_script:
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-      after_success:
+    
+    - stage: documentation
+      script:
+       - travis-sphinx build --source=doc/ --nowarn
        - travis-sphinx deploy
 
     - stage: package
@@ -51,5 +49,5 @@ jobs:
       script:
         - python setup.py sdist bdist_wheel
         - twine check dist/* 
-        - twine upload dist/*
+        #- twine upload dist/*
 
