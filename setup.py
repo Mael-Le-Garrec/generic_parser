@@ -15,7 +15,7 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/pylhc/generic_parser",
-    author="pyLHC",
+    author="hatrix",
     author_email="pylhc@github.com",
     license="MIT",
     classifiers=[
