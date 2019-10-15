@@ -29,8 +29,11 @@ jobs:
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     
     - stage: documentation
+      install:
+        - pip install travis-sphinx
       script:
        - travis-sphinx build --source=doc/ --nowarn
+      after_success:
        - travis-sphinx deploy
 
     - stage: package
@@ -50,4 +53,6 @@ jobs:
         - python setup.py sdist bdist_wheel
         - twine check dist/* 
         #- twine upload dist/*
+
+
 
